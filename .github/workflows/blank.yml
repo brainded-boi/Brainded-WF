@@ -1,8 +1,8 @@
-name: Demploy
+name: Deploy
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
     paths-ignore: 'README.md'
   workflow_dispatch:
    
@@ -31,7 +31,7 @@ jobs:
 
       - name: Clone The Secret Mirror Repository
         run: |
-          git clone https://${{ secrets.GH_TOKEN }}@github.com/${{ secrets.REMPO }} -b ${Branch} source
+          git clone https://${{ secrets.GH_TOKEN }}@github.com/${{ secrets.REPO }} -b ${Branch} source
       - name: Compile The Mirroring Docker Container
         run: |
           cd source || exit 1
@@ -51,4 +51,4 @@ jobs:
           echo $(( RANDOM - ( RANDOM % RANDOM ) )) > looper.txt
           git add looper.txt
           git commit -m "Workflow : Loop"
-          git push -q https://${{ secrets.GH_TOKEN }}@github.com/${GITHUB_REPOSITORY} HEAD:main
+          git push -q https://${{ secrets.GH_TOKEN }}@github.com/${GITHUB_REPOSITORY} HEAD:master
